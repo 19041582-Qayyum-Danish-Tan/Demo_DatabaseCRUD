@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvDBContent;
     EditText etContent;
     ArrayList<Note> al;
+    ListView lv;
+    ArrayAdapter aa;
 
 
     @Override
@@ -62,8 +66,15 @@ public class MainActivity extends AppCompatActivity {
                             tmp.getNoteContent() + "\n";
                 }
                 tvDBContent.setText(txt);
+                aa.notifyDataSetChanged();
             }
         });
+
+        lv = findViewById(R.id.lv);
+        aa = new ArrayAdapter<Note>(this,
+                android.R.layout.simple_list_item_1, al);
+        lv.setAdapter(aa);
+
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,11 +84,22 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this,
                         EditActivity.class);
                 i.putExtra("data", target);
-                startActivity(i);
+                //startActivity(i);
+                startActivityForResult(i, 9);
+
             }
         });
 
-
-
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == 9){
+            btnRetrieve.performClick();
+        }
+    }
+
 }

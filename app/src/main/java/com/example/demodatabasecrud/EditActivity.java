@@ -42,6 +42,7 @@ public class EditActivity extends AppCompatActivity {
                 data.setNoteContent(etContent.getText().toString());
                 dbh.updateNote(data);
                 dbh.close();
+
             }
         });
 
