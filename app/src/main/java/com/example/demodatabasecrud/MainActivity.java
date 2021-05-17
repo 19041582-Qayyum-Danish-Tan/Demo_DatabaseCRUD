@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         btnEdit = findViewById(R.id.btnEdit);
         btnRetrieve = findViewById(R.id.btnRetrieve);
         etContent = findViewById(R.id.etContent);
+        tvDBContent = findViewById(R.id.tvDBContent);
         al = new ArrayList<Note>();
 
 
